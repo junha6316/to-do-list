@@ -1,13 +1,17 @@
-import TodoItem from "./TodoItem";
+import TodoItem, { ITodo } from "./TodoItem";
+import styled from "styled-components";
 
-export default function TodoList(){
+const Container = styled.div`
+    width: 500px;
+`
+interface IProps{
+    todos: ITodo[]
+}
+export default function TodoList({todos}: IProps){
 
-    const todos =[
-        {id:1, text: "todo", done: false}
-    ]
-    return <div>
+    return <Container>
         {todos.map(todo=>
             <TodoItem todo={todo} />
             )}
-    </div>
+    </Container>
 }

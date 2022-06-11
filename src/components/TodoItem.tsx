@@ -1,6 +1,7 @@
 
+import styled from "styled-components"
 
-interface ITodo{
+export interface ITodo{
     id: number;
     text: string;
     done: boolean;
@@ -9,7 +10,27 @@ interface ITodo{
 interface IProps{
     todo: ITodo
 }
+
+const TodoText = styled.span`
+    padding: 5px 5px;   
+`
+
+const Container = styled.div`
+    padding: 5px 5px;
+    display: flex;
+    justify-content: space-between;
+`
+
+const BtnContainer = styled.span``
 export default function TodoItem({todo}: IProps){
 
-    return <h1>{todo.text}</h1>
+    return (
+    <Container>
+        <TodoText>{todo.text}</TodoText>
+        <BtnContainer>
+            <button>delete</button>
+            <button>done</button>
+        </BtnContainer>
+    </Container>
+    )
 }

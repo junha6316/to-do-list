@@ -1,16 +1,16 @@
 import { eventNames } from "process"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
+import { TodoContext } from "../context"
 
 
-interface IProps{
-    createTodo: (text: string) => void
-}
-export default function TodoInput({createTodo}: IProps){
+
+export default function TodoInput(){
     
     const [value, setValue] = useState('')
+    const {dispatchTodoEvent} = useContext(TodoContext)
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
-        createTodo(value)
+        dispatchTodoEvent("CREATE_TODO", {text:value})
         setValue('')
 
     }

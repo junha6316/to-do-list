@@ -1,5 +1,7 @@
 
+import { useContext } from "react";
 import styled from "styled-components"
+import { TodoContext } from "../context";
 
 export interface ITodo{
     id: number;
@@ -9,8 +11,7 @@ export interface ITodo{
 
 interface IProps{
     todo: ITodo
-    doneTodo: (id: number)=> void
-    deleteTodo: (id: number)=> void
+  
 }
 
 const TodoText = styled.span`
@@ -28,7 +29,16 @@ const Container = styled.div`
 const BtnContainer = styled.span`
 `
 
-export default function TodoItem({todo, deleteTodo, doneTodo}: IProps){
+export default function TodoItem({todo}: IProps){
+    const {dispatchTodoEvent} = useContext(TodoContext)
+
+    const handleDeleteTodo =(id: number)=>{
+        dispatchTodoEvent("DELETE_TODO",{id:id})
+    }
+
+    const handleDoneTodo =(id: number)=>{
+        dispatchTodoEvent("DONE_TODO",{id:id})
+    }
 
     
     return (
@@ -36,8 +46,8 @@ export default function TodoItem({todo, deleteTodo, doneTodo}: IProps){
         {todo.done ? "o" : "x"}
         <TodoText>{todo.text}</TodoText>
         <BtnContainer>
-            <button onClick={()=>deleteTodo(todo.id)}>delete</button>
-            <button onClick={()=>doneTodo(todo.id)}>done</button>
+            <button onClick={()=>handleDeleteTodo(todo.id)}>delete</button>
+            <button onClick={()=>handleDoneTodo(todo.id)}>done</button>
         </BtnContainer>
     </Container>
     )

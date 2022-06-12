@@ -15,15 +15,18 @@ interface IProps{
 
 const TodoText = styled.span`
     padding: 5px 5px;   
+    
 `
 
 const Container = styled.div`
     padding: 5px 5px;
     display: flex;
     justify-content: space-between;
+    border: solid 0.5px black;
 `
 
-const BtnContainer = styled.span``
+const BtnContainer = styled.span`
+`
 
 export default function TodoItem({todo, deleteTodo, doneTodo}: IProps){
 

@@ -13,7 +13,7 @@ export default function TodoList({todos,doneTodo,deleteTodo}: IProps){
 
     return <Container>
         {todos.map(todo=>
-            <TodoItem todo={todo} doneTodo={doneTodo} deleteTodo={deleteTodo}/>
+            <TodoItem key={todo.id} todo={todo} doneTodo={doneTodo} deleteTodo={deleteTodo}/>
             )}
     </Container>
 }

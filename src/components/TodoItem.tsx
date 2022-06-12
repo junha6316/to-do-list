@@ -9,6 +9,8 @@ export interface ITodo{
 
 interface IProps{
     todo: ITodo
+    doneTodo: (id: number)=> void
+    deleteTodo: (id: number)=> void
 }
 
 const TodoText = styled.span`
@@ -22,14 +24,17 @@ const Container = styled.div`
 `
 
 const BtnContainer = styled.span``
-export default function TodoItem({todo}: IProps){
 
+export default function TodoItem({todo, deleteTodo, doneTodo}: IProps){
+
+    
     return (
     <Container>
+        {todo.done ? "o" : "x"}
         <TodoText>{todo.text}</TodoText>
         <BtnContainer>
-            <button>delete</button>
-            <button>done</button>
+            <button onClick={()=>deleteTodo(todo.id)}>delete</button>
+            <button onClick={()=>doneTodo(todo.id)}>done</button>
         </BtnContainer>
     </Container>
     )

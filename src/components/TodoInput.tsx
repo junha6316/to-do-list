@@ -14,7 +14,6 @@ export default function TodoInput({createTodo}: IProps){
         setValue('')
 
     }
-    
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
         setValue(event.target.value)

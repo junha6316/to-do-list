@@ -6,12 +6,14 @@ const Container = styled.div`
 `
 interface IProps{
     todos: ITodo[]
+    doneTodo: (id: number) => void
+    deleteTodo: (id: number) => void
 }
-export default function TodoList({todos}: IProps){
+export default function TodoList({todos,doneTodo,deleteTodo}: IProps){
 
     return <Container>
         {todos.map(todo=>
-            <TodoItem todo={todo} />
+            <TodoItem todo={todo} doneTodo={doneTodo} deleteTodo={deleteTodo}/>
             )}
     </Container>
 }

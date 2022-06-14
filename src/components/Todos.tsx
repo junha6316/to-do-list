@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import { ActionTypes, todoReducer } from "../reducer/todos";
 import Header from "./Header";
 import TodoInput from "./TodoInput";
+import { ITodo } from "./TodoItem";
 
 import TodoList from "./TodoList";
 
@@ -18,15 +19,15 @@ export default function Todos() {
     dispatch({ type: ActionTypes.DELETE, paylaod: { id } });
   };
 
-  const doneTodo = (id: number) => {
-    dispatch({ type: ActionTypes.DONE, payload: { id } });
+  const updateTodo = (todo: ITodo) => {
+    dispatch({ type: ActionTypes.UPDATE, payload: { todo } });
   };
 
   return (
     <div>
       <Header />
       <TodoInput createTodo={createTodo} />
-      <TodoList todos={todos} doneTodo={doneTodo} deleteTodo={deleteTodo} />
+      <TodoList todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} />
     </div>
   );
 }

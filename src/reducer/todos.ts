@@ -1,14 +1,15 @@
+import { act } from "react-dom/test-utils";
 import { ITodo } from "../components/TodoItem";
 
 export enum ActionTypes {
   ADD = "ADD",
-  DONE = "DONE",
+  UPDATE = "UPDATE",
   DELETE = "DELETE",
 }
 
-type DoneAction = {
-  type: ActionTypes.DONE;
-  payload: { id: number };
+type UPDATEAction = {
+  type: ActionTypes.UPDATE;
+  payload: { todo: ITodo };
 };
 
 type ADDAction = {
@@ -21,7 +22,7 @@ type DeleteAction = {
   paylaod: { id: number };
 };
 
-type Action = DoneAction | ADDAction | DeleteAction;
+type Action = UPDATEAction | ADDAction | DeleteAction;
 
 export const todoReducer = (state: ITodo[], action: Action): ITodo[] => {
   switch (action.type) {
@@ -37,18 +38,15 @@ export const todoReducer = (state: ITodo[], action: Action): ITodo[] => {
     case ActionTypes.DELETE:
       return state.filter((todo) => todo.id !== action.paylaod.id);
 
-    case ActionTypes.DONE:
+    case ActionTypes.UPDATE:
       const targetTodo = state.find(
-        ({ id: todoId }) => todoId === action.payload.id
+        ({ id: todoId }) => todoId === action.payload.todo.id
       );
       if (targetTodo) {
         const filteredTodos = state.filter(
-          ({ id: todoId }) => todoId !== action.payload.id
+          ({ id: todoId }) => todoId !== action.payload.todo.id
         );
-        return [
-          ...filteredTodos,
-          { id: targetTodo.id, text: targetTodo.text, done: true },
-        ];
+        return [...filteredTodos, { ...action.payload.todo }];
       }
       return state;
 

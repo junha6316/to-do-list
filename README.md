@@ -3,3 +3,7 @@
 - [ ] redux
 - [ ] recoil
 - [ ] mobx
+
+
+2022.06.15
+useReducer는 진짜 짱이다.. 

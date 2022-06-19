@@ -5,15 +5,18 @@ const Container = styled.div`
     width: 500px;
 `
 interface IProps{
-    todos: ITodo[]
-    doneTodo: (id: number) => void
-    deleteTodo: (id: number) => void
+    todos: ITodo[];
+    onRemove: (id: number)=> void;
+    onToggle: (id: number)=> void;
 }
-export default function TodoList({todos,doneTodo,deleteTodo}: IProps){
+
+export default function TodoList({todos
+    ,onRemove
+    ,onToggle}: IProps){
 
     return <Container>
         {todos.map(todo=>
-            <TodoItem key={todo.id} todo={todo} doneTodo={doneTodo} deleteTodo={deleteTodo}/>
+            <TodoItem key={todo.id} todo={todo} onRemove={onRemove} onToggle={onToggle}/>
             )}
     </Container>
 }

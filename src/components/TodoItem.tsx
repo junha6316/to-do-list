@@ -8,11 +8,10 @@ export interface ITodo{
 }
 
 interface IProps{
-    todo: ITodo
-    doneTodo: (id: number)=> void
-    deleteTodo: (id: number)=> void
+    todo: ITodo;
+    onRemove: (id: number)=> void;
+    onToggle: (id: number)=> void;
 }
-
 const TodoText = styled.span`
     padding: 5px 5px;   
     
@@ -28,7 +27,9 @@ const Container = styled.div`
 const BtnContainer = styled.span`
 `
 
-export default function TodoItem({todo, deleteTodo, doneTodo}: IProps){
+export default function TodoItem({todo
+    ,onRemove
+    ,onToggle}: IProps){
 
     
     return (
@@ -36,8 +37,8 @@ export default function TodoItem({todo, deleteTodo, doneTodo}: IProps){
         {todo.done ? "o" : "x"}
         <TodoText>{todo.text}</TodoText>
         <BtnContainer>
-            <button onClick={()=>deleteTodo(todo.id)}>delete</button>
-            <button onClick={()=>doneTodo(todo.id)}>done</button>
+            <button onClick={()=>onRemove(todo.id)}>delete</button>
+            <button onClick={()=>onToggle(todo.id)}>done</button>
         </BtnContainer>
     </Container>
     )

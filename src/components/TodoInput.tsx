@@ -1,16 +1,21 @@
-import { eventNames } from "process"
+
 import React, { useState } from "react"
 
 
 interface IProps{
-    createTodo: (text: string) => void
-}
-export default function TodoInput({createTodo}: IProps){
+    input: string;
+    onInsert: any;
+    onChangeInput: any;
+    }
+export default function TodoInput({
+    input
+    ,onInsert
+    ,onChangeInput}: IProps){
     
     const [value, setValue] = useState('')
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
-        createTodo(value)
+        onInsert(value)
         setValue('')
 
     }

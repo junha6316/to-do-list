@@ -8,6 +8,19 @@ const CLEAR_ALL_TODOS= "CLEAR_ALL_TODOS" as const
 
 export const changeTodoInput = (input: string)=>({type: CHANGE_TODO_INPUT, input});
 export const clearAllTodos = () =>({type: CLEAR_ALL_TODOS});
+export const addTodo = (input: string) =>({
+    type: ADD_TODO,
+    todo:{
+        text:input,
+        done:false
+    }
+})
+export const toggleTodoStatus = (id: number) =>({
+    type: TOGGLE_TODO_STATUS, id
+})
+export const removeTodo = (id: number) =>({
+    type: REMOVE_TODO, id
+})
 
 
 export interface TodoState{
@@ -23,11 +36,11 @@ const initialState: TodoState ={
     nextTodoId: 1,
 }
 
-type TodoAction = {
-    action: string,
-    type: string,
-    input: string
-}
+type TodoAction = ReturnType<typeof changeTodoInput>
+|ReturnType<typeof addTodo>
+|ReturnType<typeof toggleTodoStatus>
+|ReturnType<typeof removeTodo>
+|ReturnType<typeof clearAllTodos>
 
 function todos(state: TodoState= initialState, action: TodoAction){
     switch (action.type) {
@@ -37,10 +50,35 @@ function todos(state: TodoState= initialState, action: TodoAction){
                 input: action.input,
             }
             break;
+        
+        case ADD_TODO:
+            const newTodo ={...action.todo, id: state.nextTodoId};
+            state.nextTodoId++;
+            return {
+                ...state,
+                todos: state.todos.concat(newTodo)
+            }
+
+        case TOGGLE_TODO_STATUS:
+            return {
+                ...state,
+                todos: state.todos.map((todo) =>
+                todo.id ===action.id? {...todos, done: !todo.done}: todo)
+            }
+        case REMOVE_TODO:
+            return {
+                ...state,
+                todos: state.todos.filter((todo)=>todo.id !== action.id)
+            }
+        case CLEAR_ALL_TODOS:
+            return {
+                ...state,
+                todos:[]
+            }
     
         default:
             return state;
-            break;
+            
     }
 }
 

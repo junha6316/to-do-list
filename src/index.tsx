@@ -4,6 +4,10 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { createGlobalStyle } from 'styled-components';
 
+import todos from './modules/todos';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore} from 'redux';
+import {Provider} from "react-redux"
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -71,10 +75,15 @@ a {
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const store = createStore(todos, composeWithDevTools());
+
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <GlobalStyle />
     <App />
+    </Provider>
   </React.StrictMode>
 );
 
